@@ -1,1 +1,0 @@
-{"root":["../src/index.ts","../src/config/config.ts","../src/controller/handleuserdetails.ts","../src/controller/handleusersignin.ts","../src/controller/handleusersignup.ts","../src/model/login.ts","../src/routes/userrouter.ts","../src/types/index.ts"],"version":"5.8.2"}
