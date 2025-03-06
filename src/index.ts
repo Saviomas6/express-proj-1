@@ -1,16 +1,30 @@
-// src/index.ts
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
+import { connectDB } from "./db/config";
+import userRouter from "./routes/userRouter";
 
-dotenv.config();
+const app = express();
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-const app: Express = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
+app.use("/api/users", userRouter);
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+const startServer = async () => {
+  try {
+    const response = await connectDB();
+    if (response) {
+      console.log("Connection successful");
+    }
+    app.listen(PORT, () => {
+      console.log("App listening on port 8081!");
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+startServer();
