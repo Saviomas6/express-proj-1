@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 require("dotenv/config");
-const config_1 = require("./db/config");
+const config_1 = require("./config/config");
 const userRouter_1 = __importDefault(require("./routes/userRouter"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
