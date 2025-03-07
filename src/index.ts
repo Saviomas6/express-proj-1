@@ -1,16 +1,30 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
+import { connectDB } from "./config/config";
+import userRouter from "./routes/userRouter";
 
 const app = express();
-const port = process.env.PORT || 8080;
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get("/", (_req: Request, res: Response) => {
-  res.send("Express Typescript on Vercel");
-});
+const PORT = process.env.PORT || 5000;
 
-app.get("/ping", (_req: Request, res: Response) => {
-  res.send("pong 🏓");
-});
+app.use(userRouter);
 
-app.listen(port, () => {
-  console.log(`Server is listening on ${port}`);
-});
+const startServer = async () => {
+  try {
+    const response = await connectDB();
+    if (response) {
+      console.log("Connection successful");
+    }
+    app.listen(PORT, () => {
+      console.log("App listening on port 8081!");
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+startServer();
