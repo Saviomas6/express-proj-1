@@ -18,7 +18,11 @@ require("dotenv/config");
 const config_1 = require("./config/config");
 const userRouter_1 = __importDefault(require("./routes/userRouter"));
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: "*", // Use specific origins in production
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // Needed if using cookies
+}));
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 const PORT = process.env.PORT || 5000;
@@ -30,7 +34,7 @@ const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
             console.log("Connection successful");
         }
         app.listen(PORT, () => {
-            console.log("App listening on port 8081!");
+            console.log("App listening on port 5000!");
         });
     }
     catch (e) {

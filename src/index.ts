@@ -5,7 +5,13 @@ import { connectDB } from "./config/config";
 import userRouter from "./routes/userRouter";
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Use specific origins in production
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // Needed if using cookies
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -20,7 +26,7 @@ const startServer = async () => {
       console.log("Connection successful");
     }
     app.listen(PORT, () => {
-      console.log("App listening on port 8081!");
+      console.log("App listening on port 5000!");
     });
   } catch (e) {
     console.log(e);
